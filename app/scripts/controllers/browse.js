@@ -10,7 +10,10 @@ angular.module('auditionApp')
     $scope.productions = {};
 
     for (var i = 0; i < pArray.length; i++) {
-      $scope.productions = _.extend($scope.productions, pArray[i].productions);
+      $scope.productions = _.extend($scope.productions, _.map(pArray[i].productions,function(production) {
+        console.log(pArray[i]);
+        return _.extend(production, { user: pArray[i].$id });
+      }));
     }
 
     console.log($scope.productions);
