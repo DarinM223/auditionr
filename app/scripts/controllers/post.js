@@ -20,7 +20,7 @@ angular.module('auditionApp')
 		$scope.posts.$add({
 			productionName: $scope.productionname,
 			companyName: $scope.companyname,
-			characters: trimmedArray, 
+			characters: trimmedArray,
 			sampleScript: $scope.samplescript,
 			descriptionBox: $scope.description
         });

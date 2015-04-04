@@ -6,11 +6,29 @@
         <h4 class="modal-title">{{ current.productionName }} &ndash; {{current.companyName }}</h4>
       </div>
       <div class="modal-body">
-        <p>{{ current.sampleScript }}</p>
+        <h3>Description:</h3>
+        <p>
+          {{ current.descriptionBox }}
+        </p>
+
+        <h3>Script sample:</h3>
+        <div class="well">
+          <p>{{ current.sampleScript }}</p>
+        </div>
+
+        <h3>Character to audition for:</h3>
+        <form role="form">
+
+          <div class="radio" ng-repeat="character in current.characters track by $index">
+            <label><input type="radio" name="character" value="{{$index}}">{{character}}</label>
+          </div>
+
+        </form>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Audition</button>
+        <button type="button" class="btn btn-primary" ng-click="submit()">Audition</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
