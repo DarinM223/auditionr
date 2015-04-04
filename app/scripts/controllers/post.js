@@ -15,7 +15,8 @@ angular.module('auditionApp')
 			productionName: $scope.productionname,
 			companyName: $scope.companyname,
 			characterName: $scope.charactername,
-			sampleScript: $scope.samplescript});
+			sampleScript: $scope.samplescript,
+			descriptionBox: $scope.description});
         $location.path('/browse');
 	}
   } else {
