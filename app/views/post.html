@@ -19,9 +19,9 @@
   			<label for="charactername" class="col-sm-2 control-label">Characters:</label>
     		<!-- <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label> -->
     		<div class="col-sm-10">
-    			<span ng-repeat="character in characters" >
+    			<span ng-repeat="character in characters track by $index" >
     				<div class="input-group">
-    					<input type="text" class="form-control" id="charactername" ng-model="row[$index]" placeholder="Enter Character name">
+    					<input type="text" class="form-control" id="charactername" ng-model="characters[$index]" placeholder="Enter Character name">
     					<span class="input-group-btn">
       						<button class="btn btn-default" ng-click="plusClick()" type="button">+</button>
    						</span>

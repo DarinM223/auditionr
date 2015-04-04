@@ -8,22 +8,28 @@ angular.module('auditionApp')
 	var ref = new Firebase("https://auditionr.firebaseio.com/users/" + $rootScope.authId + "/productions")
 	var pArray = $firebaseArray(ref)
 
-	$scope.characters = [1]
+	$scope.characters = [""]
 
 	$scope.postClick = function() {
 		$scope.posts = pArray
 
+        console.log($scope.characters);
+        var trimmedArray = $scope.characters.filter(function(elem) { return elem.trim() !== '' });
+        console.log(trimmedArray);
+
 		$scope.posts.$add({
 			productionName: $scope.productionname,
 			companyName: $scope.companyname,
-			characterName: $scope.charactername,
+			characters: trimmedArray, 
 			sampleScript: $scope.samplescript,
-			descriptionBox: $scope.description});
+			descriptionBox: $scope.description
+        });
         $location.path('/browse');
 	}
 
 	$scope.plusClick = function() {
-		$scope.characters.push($scope.characters.length + 1)
+		// $scope.characters.push($scope.characters.length + 1)
+        $scope.characters.push("");
 		console.log($scope.characters)
 
 	}
