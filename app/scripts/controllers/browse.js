@@ -3,13 +3,11 @@
 angular.module('auditionApp')
 
 .controller('BrowseCtrl', function ($scope, $firebaseArray) {
-  var pRef = new Firebase("https://auditionr.firebaseio.com/users") // p for productions
+  var pRef = new Firebase("https://auditionr.firebaseio.com/users")
   var pArray = $firebaseArray(pRef)
-  // var pObj = pSync.$asArray()
 
   pArray.$loaded().then(function(arr) {
     $scope.productions = {};
-
 
     for (var i = 0; i < pArray.length; i++) {
       $scope.productions = _.extend($scope.productions, pArray[i].productions);
@@ -17,12 +15,11 @@ angular.module('auditionApp')
 
     console.log($scope.productions);
 
-    // pArray.$add({title: 'Romeo and Juliet' + Math.random(), company: 'LA Central Theater', description: 'A production of the classic play'})
   })
 
-  $scope.signup = function(i) {
-    console.log(pArray[i])
-    $scope.current = pArray[i]
+  $scope.signup = function(id) {
+    console.log($scope.productions[id])
+    $scope.current = $scope.productions[id]
     $('#signup-modal').modal()
   }
 });

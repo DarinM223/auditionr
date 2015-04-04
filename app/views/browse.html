@@ -3,10 +3,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">{{ current.title }} &ndash; {{current.company}}</h4>
+        <h4 class="modal-title">{{ current.productionName }} &ndash; {{current.companyName }}</h4>
       </div>
       <div class="modal-body">
-        <p>{{ current.description}}</p>
+        <p>{{ current.sampleScript }}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -21,7 +21,7 @@
 <p>
   <a ng-href="#/post" class="btn btn-primary btn-large">Post New Production</a>
 </p>
-<div class="show-listing col-md-4" ng-repeat="production in productions track by $index">
+<div class="show-listing col-md-4" ng-repeat="(id, production) in productions">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{production.productionName}} &ndash; {{production.companyName}}</h3>
@@ -29,9 +29,9 @@
     <div class="panel-body">
       {{production.sampleScript}}
       <div class="production-foot col-sm-12">
-        <a ng-click="signup($index)" class="btn btn-success btn-large col-lg-8 col-lg-offset-2 col-xs-4 col-xs-offset-4">Audition</a>
+        <a ng-click="signup(id)" class="btn btn-success btn-large col-lg-8 col-lg-offset-2 col-xs-4 col-xs-offset-4">Audition</a>
       </div>
-      
+
     </div>
   </div>
 </div>

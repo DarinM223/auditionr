@@ -36,7 +36,7 @@ angular
         templateUrl: 'views/post.html',
         controller: 'PostCtrl'
       })
-      .when('/audition/:audition_id', {
+      .when('/audition/:director_id/:production_id/:audition_id', {
         templateUrl: 'views/audition.html',
         controller: 'AuditionCtrl'
       })
