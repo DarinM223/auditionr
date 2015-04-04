@@ -36,13 +36,13 @@ angular
         templateUrl: 'views/post.html',
         controller: 'PostCtrl'
       })
-      .when('/audition', {
+      .when('/audition/:audition_id', {
         templateUrl: 'views/audition.html',
-        contrller: 'AuditionCtrl'
+        controller: 'AuditionCtrl'
       })
       .when('/casting', {
         templateUrl: 'views/casting.html',
-        contrller: 'CastingCtrl'
+        controller: 'CastingCtrl'
       })
       .otherwise({
         redirectTo: '/'
