@@ -16,14 +16,17 @@ angular.module('auditionApp')
 
     $scope.error = null;
 
+    $scope.resetError = function() {
+      $scope.error = null;
+    };
+
 	$scope.postClick = function() {
-        if ($scope.characters.trim() === '' ||
-            $scope.productionname.trim() === '' ||
+        if ($scope.productionname.trim() === '' ||
             $scope.companyname.trim() === '' ||
             $scope.samplescript.trim() === '' ||
             $scope.description.trim() === '') {
 
-          
+          $scope.error = "You cannot leave any of the fields empty!";
         } else {
 		  $scope.posts = pArray
 
