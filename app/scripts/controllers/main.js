@@ -19,7 +19,6 @@ angular.module('auditionApp')
       console.log('redirecting')
       $location.path('/browse')
       // $location.replace()
-
     }
   }
 
