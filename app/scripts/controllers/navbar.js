@@ -21,14 +21,6 @@ angular.module('auditionApp')
     var authData = ref.getAuth()
 
     checkLogin(authData)
-
-    // if(authData) {
-    //   $scope.loggedIn = true;
-    //   $scope.name = authData.facebook.displayName;
-    //   console.log(authData)
-    // } else {
-    //   $scope.loggedIn = false;
-    // }
   }
 
   $scope.logout = function() {
