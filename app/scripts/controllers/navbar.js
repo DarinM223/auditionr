@@ -2,7 +2,7 @@
 
 angular.module('auditionApp')
 
-.controller('NavbarCtrl', function ($scope) {
+.controller('NavbarCtrl', function ($scope, $rootScope) {
   var ref = new Firebase("https://auditionr.firebaseio.com");
   ref.onAuth(checkLogin);
 
@@ -10,7 +10,7 @@ angular.module('auditionApp')
     if(authData) {
       $scope.loggedIn = true;
       $scope.name = authData.facebook.displayName;
-      console.log(authData)
+      $rootScope.authId = authData.uid;
 
       var user = ref.child('/users/' + authData.uid);
       user.on("value", function(snapshot) {
@@ -38,6 +38,7 @@ angular.module('auditionApp')
   }
 
   $scope.logout = function() {
+    $rootScope.authId = null;
     ref.unauth()
   }
 });

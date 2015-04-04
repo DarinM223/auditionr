@@ -2,23 +2,24 @@
 
 angular.module('auditionApp')
 
-.controller('PostCtrl', function ($scope, $firebaseArray) {
-	var ref = new Firebase("https://auditionr.firebaseio.com/posts")
-	console.log("HELLO WORLD!!!!")
+.controller('PostCtrl', function ($scope, $rootScope, $firebaseArray, $location) {
+  if ($rootScope.authId !== null) {
+    console.log($rootScope.authId);
+	var ref = new Firebase("https://auditionr.firebaseio.com/users/" + $rootScope.authId + "/productions")
 	var pArray = $firebaseArray(ref)
 
 	$scope.postClick = function() {
 		$scope.posts = pArray
-		console.log($scope.productionname)
-		console.log($scope.companyname)
-		console.log($scope.charactername)
-		console.log($scope.samplescript)
 
 		$scope.posts.$add({
 			productionName: $scope.productionname,
 			companyName: $scope.companyname,
-			characterName: $scope.characterName,
+			characterName: $scope.charactername,
 			sampleScript: $scope.samplescript});
+        $location.path('/browse');
 	}
+  } else {
+    console.log("User id is null!");
+  }
 
 });

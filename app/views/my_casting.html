@@ -1,0 +1,14 @@
+<h1>Browse Castings</h1>
+<p>
+  <a ng-href="/post" class="btn btn-primary btn-large">Post New Casting</a>
+</p>
+<div class="show-listing col-md-4" ng-repeat="casting in castings">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{casting.title}}</h3>
+    </div>
+    <div class="panel-body">
+      {{casting.description}}
+    </div>
+  </div>
+</div>
