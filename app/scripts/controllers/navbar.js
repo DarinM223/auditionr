@@ -11,6 +11,20 @@ angular.module('auditionApp')
       $scope.loggedIn = true;
       $scope.name = authData.facebook.displayName;
       console.log(authData)
+
+      var user = ref.child('/users/' + authData.uid);
+      user.on("value", function(snapshot) {
+        if (snapshot.val() === null){
+          user.set({
+            name: authData.facebook.displayName,
+            picture: authData.facebook.cachedUserProfile.picture.data.url
+          });
+        } else {
+          var retrieveUser = snapshot.val();
+          console.log(snapshot.val());
+          console.log('Already retrieved user name: ' + retrieveUser.name + ' picture url: ' + retrieveUser.picture);
+        }
+      });
     } else {
       $scope.loggedIn = false;
     }

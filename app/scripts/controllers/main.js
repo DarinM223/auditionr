@@ -11,6 +11,7 @@ angular.module('auditionApp')
 
 
 .controller('MainCtrl', function ($scope, $location, $route) {
+  var ref = new Firebase("https://auditionr.firebaseio.com");
 
   function authDataCallback(authData) {
     console.log('authDataCallback')
@@ -18,7 +19,8 @@ angular.module('auditionApp')
       console.log("User " + authData.uid + " is logged in with " + authData.provider);
       console.log('redirecting')
       $location.path('/browse')
-      // $location.replace()
+
+      console.log(authData);
     }
   }
 
@@ -37,7 +39,4 @@ angular.module('auditionApp')
     var authData = ref.getAuth();
     authDataCallback(authData)
   }
-
-  var ref = new Firebase("https://auditionr.firebaseio.com");
-
 });
