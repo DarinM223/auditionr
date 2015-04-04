@@ -44,6 +44,10 @@ angular
         templateUrl: 'views/casting.html',
         controller: 'CastingCtrl'
       })
+      .when('/my_casting', {
+        templateUrl: 'views/my_casting.html',
+        controller: 'MyCastingCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
