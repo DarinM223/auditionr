@@ -15,4 +15,10 @@ angular.module('auditionApp')
 
     // pArray.$add({title: 'Romeo and Juliet' + Math.random(), company: 'LA Central Theater', description: 'A production of the classic play'})
   })
+
+  $scope.signup = function(i) {
+    console.log(pArray[i])
+    $scope.current = pArray[i]
+    $('#signup-modal').modal()
+  }
 });

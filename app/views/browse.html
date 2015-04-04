@@ -1,14 +1,36 @@
+<div class="modal fade" id="signup-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{ current.title }} &ndash; {{current.company}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{ current.description}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Audition</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <h1>Browse Productions</h1>
 <p>
   <a ng-href="/post" class="btn btn-primary btn-large">Post New Production</a>
 </p>
-<div class="show-listing col-md-4" ng-repeat="production in productions">
+<div class="show-listing col-md-4" ng-repeat="production in productions track by $index">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{production.title}} &ndash; {{production.company}}</h3>
     </div>
     <div class="panel-body">
       {{production.description}}
+      <div class="production-foot col-sm-12">
+        <a ng-click="signup($index)" class="btn btn-success btn-large col-lg-8 col-lg-offset-2 col-xs-4 col-xs-offset-4">Audition</a>
+      </div>
     </div>
   </div>
 </div>
