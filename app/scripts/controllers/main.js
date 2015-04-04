@@ -10,7 +10,7 @@
 angular.module('auditionApp')
 
 
-.controller('MainCtrl', function ($scope, $location) {
+.controller('MainCtrl', function ($scope, $location, $route) {
 
   function authDataCallback(authData) {
     console.log('authDataCallback')
@@ -18,7 +18,8 @@ angular.module('auditionApp')
       console.log("User " + authData.uid + " is logged in with " + authData.provider);
       console.log('redirecting')
       $location.path('/browse')
-      $location.replace()
+      // $location.replace()
+
     }
   }
 
@@ -29,6 +30,7 @@ angular.module('auditionApp')
       } else {
         console.log("Authenticated successfully with payload:", authData);
         authDataCallback(ref.getAuth())
+        $route.reload()
       }
     });
   }
@@ -39,6 +41,5 @@ angular.module('auditionApp')
   }
 
   var ref = new Firebase("https://auditionr.firebaseio.com");
-  ref.onAuth(authDataCallback);
 
 });
