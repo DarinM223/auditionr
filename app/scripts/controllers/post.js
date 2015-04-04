@@ -9,8 +9,16 @@ angular.module('auditionApp')
 
 	$scope.postClick = function() {
 		$scope.posts = pArray
+		console.log($scope.productionname)
+		console.log($scope.companyname)
+		console.log($scope.charactername)
+		console.log($scope.samplescript)
 
-		// console.log("This is " + pArray)
+		$scope.posts.$add({
+			productionName: $scope.productionname,
+			companyName: $scope.companyname,
+			characterName: $scope.characterName,
+			sampleScript: $scope.samplescript});
 	}
 
 });
