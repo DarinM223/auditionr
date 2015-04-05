@@ -7,6 +7,13 @@ angular.module('auditionApp')
   var ref = new Firebase("https://auditionr.firebaseio.com/users/" + $routeParams.director_id +
     "/productions/" + $routeParams.production_id + "/auditions/" + $routeParams.audition_id);
 
+  $scope.$on('$routeChangeStart', function(next, current) {
+    console.log('Route changed!');
+    // if ($scope.client) {
+    //   $scope.client.disconnect();
+    }
+  });
+
   ref.on("value", function(snapshot) {
     $scope.audition = snapshot.val();
 
@@ -19,6 +26,7 @@ angular.module('auditionApp')
 
       $scope.clients = []
       $scope.activeCalls = []
+      $('.modal-backdrop').hide();
 
       $scope.loading = false
 

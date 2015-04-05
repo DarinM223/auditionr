@@ -44,14 +44,14 @@
     <div class="panel-heading">
       <h3 class="panel-title">{{production.productionName}} &ndash; {{production.companyName}}</h3>
     </div>
-    <div class="panel-body hide-content">
+    <div class="panel-body production">
 
       <div ng-if="production.descriptionBox == null || production.descriptionBox.trim().length == 0"><br></div>
       <div ng-if="production.descriptionBox.length > 47">{{production.descriptionBox.substring(0, 47) + "..."}}</div>
       <div ng-if="production.descriptionBox.length <= 47">{{production.descriptionBox}}</div>
       <br>
       <br>
-        <a ng-click="signup(id)" class="btn btn-success btn-large col-lg-8 col-lg-offset-2 col-xs-4 col-xs-offset-4">Audition</a>
+        <a ng-click="signup(id)" class="audition-btn btn btn-success btn-large col-lg-8 col-lg-offset-2 col-xs-4 col-xs-offset-4">Audition</a>
       </div>
 
     </div>
