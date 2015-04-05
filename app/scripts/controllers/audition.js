@@ -44,6 +44,18 @@ angular.module('auditionApp')
         }
       }
 
+      $scope.iStore = (function() {
+        var iLocal = 0;
+        var iRemote = 0;
+
+        return {
+          getLocal: function(){return iLocal},
+          incrementLocal: function(){iLocal++},
+
+          getRemote: function(){return iRemote},
+          incrementRemote: function(){iRemote++}
+        }
+      })()
 
       for(i=0;i<$scope.remotes.length;i++) {
 
@@ -54,6 +66,20 @@ angular.module('auditionApp')
         }))
 
         var ci = $scope.clients.length - 1
+
+        var callOptions = {
+          // your video
+          onLocalMedia: function(evt) {
+              setVideo('localVideoSource-' + $scope.iStore.getLocal(), evt.element)
+              $scope.iStore.incrementLocal()
+          },
+
+          // their video
+          onConnect: function(evt) {
+              setVideo('remoteVideoSource-' + $scope.iStore.getRemote(), evt.element)
+              $scope.iStore.incrementRemote()
+          }
+        }
 
         if($scope.remotes[i].iShouldCall) {
           // Call them
@@ -75,47 +101,40 @@ angular.module('auditionApp')
             endpointId: $rootScope.authId
           })
 
-          var callOptions = {
-            // your video
-            onLocalMedia: function(evt) {
-                setVideo('localVideoSource', evt.element)
-            },
 
-            // their video
-            onConnect: function(evt) {
-                setVideo('remoteVideoSource-' + i, evt.element)
-            }
-          };
+          $timeout(function(data){
+            console.log(data)
+            $scope.call(data.i, data.callOptions, data.ci)
+          }.bind(null, {i: i, callOptions: callOptions, ci: ci}), 5000)
 
-          ;(function(i, callOptions, ci) {
-
-            $timeout(function(){
-              $scope.call(i, callOptions, ci)
-            }, 5000)
-
-          })(i, callOptions, ci)
 
 
 
         } else {
           // Wait for their call
 
-          $scope.clients[ci].listen('call', function(evt) {
-            $scope.activeCalls.push(evt.call);
-            var activeId = $scope.activeCalls.length;
+          ;(function(callOptions) {
+            $scope.clients[ci].listen('call', function(evt) {
+              $scope.activeCalls.push(evt.call);
+              var activeId = $scope.activeCalls.length;
 
-            if ($scope.activeCalls[activeId].caller !== true) {
-              $scope.activeCalls[activeId].answer(callOptions);
+              if ($scope.activeCalls[activeId].caller !== true) {
+                $scope.activeCalls[activeId].answer(callOptions);
 
-              // The hangup event indicates the call is over
-              $scope.activeCalls[activeId].listen('hangup', function () {
-                  $scope.activeCalls[activeId] = null;
-                  $scope.$apply();
-              });
-            }
-            $scope.$apply();
+                // The hangup event indicates the call is over
+                $scope.activeCalls[activeId].listen('hangup', function () {
+                    $scope.activeCalls[activeId] = null;
+                    $scope.$apply();
+                });
+              }
+              $scope.$apply();
 
-          });
+            });
+
+          })(callOptions)
+
+
+
         }
       }
 
