@@ -36,15 +36,25 @@ angular.module('auditionApp')
           var trimmedArray = $scope.characters.filter(function(elem) { return elem.trim() !== '' });
           console.log(trimmedArray);
 
-		  $scope.posts.$add({
+      var theData = {
 		  	productionName: $scope.productionname,
 		  	companyName: $scope.companyname,
 		  	characters: trimmedArray,
 		  	sampleScript: $scope.samplescript,
 		  	descriptionBox: $scope.description
-          });
+      }
+		  $scope.posts.$add(theData).then(function(p) {
+        console.log(p)
+        p.set(_.extend(theData, {id: p.key()}))
+        // p.$add({id: p.key()})
+      })
+
+
           $location.path('/browse');
+
+
         }
+
 	}
 
 	$scope.plusClick = function() {

@@ -21,8 +21,6 @@ angular.module('auditionApp')
           });
         } else {
           var retrieveUser = snapshot.val();
-          console.log(snapshot.val());
-          console.log('Already retrieved user name: ' + retrieveUser.name + ' picture url: ' + retrieveUser.picture);
         }
       });
     } else {

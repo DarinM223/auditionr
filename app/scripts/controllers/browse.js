@@ -9,22 +9,17 @@ angular.module('auditionApp')
   pArray.$loaded().then(function(arr) {
     $scope.productions = {};
 
-    console.log(pArray.length);
-
     for (var i = 0; i < pArray.length; i++) {
       $scope.productions = _.extend($scope.productions, _.map(pArray[i].productions,function(production) {
-        return _.extend(production, { user: pArray[i].$id });
+        return _.extend(production, { user: pArray[i].$id});
       }));
     }
-
-    console.log($scope.productions);
 
   })
 
   $scope.signup = function(id) {
     console.log($scope.productions[id])
     $scope.current = $scope.productions[id]
-    $scope.id = id
     $('#signup-modal').modal()
   }
 
@@ -32,16 +27,14 @@ angular.module('auditionApp')
     var production = $scope.current
     var charId = $('input:radio[name=character]:checked').val();
 
-    console.log(production)
 
     var aRef = new Firebase("https://auditionr.firebaseio.com/users/" + production.user +
-      "/productions/" + $scope.id + "/auditions");
+      "/productions/" + $scope.current.id + "/auditions");
 
     var aArray = $firebaseArray(aRef)
 
     aArray.$loaded().then(function(auditions) {
-
-      var auditions = production.auditions
+      console.log(auditions)
 
       function addAudition() {
         auditions.$add({people: [{id: $rootScope.authId, charId: charId}]})
@@ -59,14 +52,18 @@ angular.module('auditionApp')
           var has = false
 
           for(var j=0;j<audition.people.length;j++) {
-            if(audition.people[j].charId === charId)
+            console.log('ci1: ' + audition.people[j].charId + ' ci2: ' + charId)
+            if(audition.people[j].charId == charId)
               has = true
           }
 
           if(!has) {
             // There is a spot in this audition available for you
-            audition.people.$add({id: $rootScope.authId, charId: charId})
+
+            console.log('audition.people', audition.people)
+            audition.people[audition.people.length] = {id: $rootScope.authId, charId: charId}
             break;
+
           }
         }
 
