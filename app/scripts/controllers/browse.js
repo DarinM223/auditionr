@@ -12,17 +12,21 @@ angular.module('auditionApp')
     console.log(pArray.length);
 
     for (var i = 0; i < pArray.length; i++) {
-      $scope.productions = _.extend($scope.productions, _.map(pArray[i].productions,function(production) {
-        return _.extend(production, { user: pArray[i].$id });
-      }));
+      var newObj = {};
+      _.each(pArray[i].productions, function(value, key, obj) {
+        if (typeof(key) !== 'undefined') {
+          var production = value;
+          newObj[key] = _.extend(production, { user: pArray[i].$id });
+        }
+      });
+      console.log(newObj);
+      $scope.productions = _.extend($scope.productions, newObj);
     }
 
     console.log($scope.productions);
-
   })
 
   $scope.signup = function(id) {
-    console.log($scope.productions[id])
     $scope.current = $scope.productions[id]
     $('#signup-modal').modal()
   }

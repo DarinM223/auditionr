@@ -28,7 +28,7 @@ angular.module('auditionApp')
 
           $scope.error = "You cannot leave any of the fields empty!";
         } else if ($scope.productionname.length > 30 || $scope.description.length > 70) {
-          $scope.error = "You can only enter at most 20 characters for the production name and at most 50 characters for the description";
+          $scope.error = "You can only enter at most 30 characters for the production name and at most 70 characters for the description";
         } else {
 		  $scope.posts = pArray
 
