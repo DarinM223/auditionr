@@ -11,6 +11,7 @@
     		<label for="productionname" class="col-sm-2 control-label">Name of production:</label>
     		<div class="col-sm-10">
       			<input type="text" class="form-control" id="productionname" ng-model="productionname"placeholder="Enter the name of the production">
+                <p>Characters: {{productionname.length}}/50</p>
    			 </div>
   		</div>
 
@@ -29,7 +30,8 @@
     				<div class="input-group">
     					<input type="text" class="form-control" id="charactername" ng-model="characters[$index]" placeholder="Enter Character name">
     					<span class="input-group-btn">
-      						<button class="btn btn-default" ng-click="plusClick()" type="button">+</button>
+      						<button class="btn btn-default" ng-click="plusClick()" ng-if="$index == 0" type="button">+</button>
+      						<button class="btn btn-default" ng-click="minusClick($index)" ng-if="$index != 0" type="button">-</button>
    						</span>
    					</div>
 
