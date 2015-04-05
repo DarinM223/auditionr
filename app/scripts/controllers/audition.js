@@ -58,8 +58,11 @@ angular.module('auditionApp')
         if($scope.remotes[i].iShouldCall) {
           // Call them
 
-          $scope.call = function call(i, options) {
-            var recipientEndpoint = $scope.clients[i].getEndpoint({ id: $scope.remotes[i].friendId });
+          $scope.call = function call(i, options, ci) {
+            console.log('clients', $scope.clients)
+            console.log('remotes', $scope.remotes)
+            
+            var recipientEndpoint = $scope.clients[ci].getEndpoint({ id: $scope.remotes[i].friendId });
             $scope.activeCalls.push(recipientEndpoint.startVideoCall(options));
             console.log('calling...')
           }
@@ -86,7 +89,7 @@ angular.module('auditionApp')
 
 
           $timeout(function(){
-            $scope.call(ci, callOptions)
+            $scope.call(i, callOptions, ci)
           }, 5000)
 
 
