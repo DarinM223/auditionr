@@ -87,10 +87,14 @@ angular.module('auditionApp')
             }
           };
 
+          ;(function(i, callOptions, ci) {
 
-          $timeout(function(){
-            $scope.call(i, callOptions, ci)
-          }, 5000)
+            $timeout(function(){
+              $scope.call(i, callOptions, ci)
+            }, 5000)
+
+          })(i, callOptions, ci)
+
 
 
         } else {
