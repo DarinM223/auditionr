@@ -10,6 +10,14 @@ angular.module('auditionApp')
     var pArray = $firebaseArray(ref)
 
     $scope.auditions = [];
+    $scope.my_production = null;
+
+    var productionObj = $firebaseObject(new Firebase('https://auditionr.firebaseio.com/users/' + $routeParams.director_id + '/productions/' + $routeParams.production_id));
+
+    productionObj.$loaded().then(function(production) {
+      $scope.my_production = production;
+      console.log($scope.my_production.descriptionBox);
+    });
 
     pArray.$loaded().then(function(auditions) {
       $scope.auditions = auditions;
@@ -24,7 +32,14 @@ angular.module('auditionApp')
             var newVideoNode = document.createElement('ziggeo');
             var videoAttr = document.createAttribute('ziggeo-video');
             videoAttr.value = value;
+            var widthAttr = document.createAttribute('ziggeo-width');
+            widthAttr.value = '200px';
+            var heightAttr = document.createAttribute('ziggeo-height');
+            heightAttr.value = '200px';
             newVideoNode.setAttributeNode(videoAttr);
+            newVideoNode.setAttributeNode(widthAttr);
+            newVideoNode.setAttributeNode(heightAttr);
+            newVideoNode.className = "display: inline-block;";
             videosNode.appendChild(newVideoNode);
             var breakNode = document.createElement('br');
             videosNode.appendChild(breakNode);

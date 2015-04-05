@@ -60,3 +60,7 @@ pre.script {
 .production {
     height: 150px;
 }
+
+.float-right {
+    float: right;
+}
