@@ -42,8 +42,11 @@
 .video-stream {
   height:200px;
   width:50%;
-  background-color:grey;
   float:left;
+}
+
+.video-stream video{
+  width:100%;
 }
 
 .modal-description {
