@@ -17,76 +17,93 @@ angular.module('auditionApp')
         videoParent.appendChild(videoElement);
       }
 
-      $scope.client = respoke.createClient({
-        appId: "dc7663bb-7226-415f-a88b-576527a45d9d",
-        baseURL: "https://api.respoke.io",
-        developmentMode: true
-      })
-
-      $scope.client.listen('connect', function() {
-        $scope.$apply()
-      })
-
-      $scope.client.connect({
-        endpointId: $rootScope.authId
-      })
+      $scope.clients = []
+      $scope.activeCalls = []
 
       $scope.loading = false
 
-      var callOptions = {
-        // your video
-        onLocalMedia: function(evt) {
-            setVideo('localVideoSource', evt.element)
-        },
-
-        // their video
-        onConnect: function(evt) {
-            setVideo('remoteVideoSource', evt.element)
-        }
-      };
-
-      $scope.call = function() {
-        var recipientEndpoint = $scope.client.getEndpoint({ id: $scope.friendId });
-        $scope.activeCall = recipientEndpoint.startVideoCall(callOptions);
-        console.log('calling...')
-      }
-
-      $scope.client.listen('call', function(evt) {
-        $scope.activeCall = evt.call;
-
-        if ($scope.activeCall.caller !== true) {
-          $scope.activeCall.answer(callOptions);
-
-          // The hangup event indicates the call is over
-          $scope.activeCall.listen('hangup', function () {
-              $scope.activeCall = null;
-              $scope.$apply();
-          });
-        }
-        $scope.$apply();
-
-      });
-
       var people = $scope.audition.people
+      $scope.remotes = []
+
       console.log('people', people)
-      var iShouldCall = true
+
       for(var i=0;i<people.length;i++) {
         if(people[i].id != $rootScope.authId) {
-          $scope.friendId = people[i].id
-          if(i===0)
-            iShouldCall = false
+
+          people[i].iShouldCall = people[i].id < $rootScope.authId
+
+          $scope.remotes.push(people[i])
         }
       }
 
-      console.log('I will call ' + $scope.friendId, iShouldCall)
-      if(iShouldCall) {
-        $timeout(function(){}, 5000)
 
-        .then(function() {
-          $scope.call()
-        })
+      for(i=0;i<$scope.remotes.length;i++) {
 
+        $scope.clients.push(respoke.createClient({
+          appId: "dc7663bb-7226-415f-a88b-576527a45d9d",
+          baseURL: "https://api.respoke.io",
+          developmentMode: true
+        }))
+
+        var ci = $scope.clients.length - 1
+
+        if($scope.remotes[i].iShouldCall) {
+          // Call them
+
+          function call(i, options) {
+            var recipientEndpoint = $scope.clients[i].getEndpoint({ id: $scope.remotes[i].friendId });
+            $scope.activeCalls.push(recipientEndpoint.startVideoCall(options));
+            console.log('calling...')
+          }
+
+          $scope.clients[ci].listen('connect', function() {
+            $scope.$apply()
+          })
+
+          $scope.clients[ci].connect({
+            endpointId: $rootScope.authId
+          })
+
+          var callOptions = {
+            // your video
+            onLocalMedia: function(evt) {
+                setVideo('localVideoSource', evt.element)
+            },
+
+            // their video
+            onConnect: function(evt) {
+                setVideo('remoteVideoSource-' + i, evt.element)
+            }
+          };
+
+
+          $timeout(function(){
+            $scope.call(ci, callOptions)
+          }, 5000)
+
+
+        } else {
+          // Wait for their call
+
+          $scope.clients[ci].listen('call', function(evt) {
+            $scope.activeCalls.push(evt.call);
+            var activeId = $scope.activeCalls.length;
+
+            if ($scope.activeCalls[activeId].caller !== true) {
+              $scope.activeCalls[activeId].answer(callOptions);
+
+              // The hangup event indicates the call is over
+              $scope.activeCalls[activeId].listen('hangup', function () {
+                  $scope.activeCalls[activeId] = null;
+                  $scope.$apply();
+              });
+            }
+            $scope.$apply();
+
+          });
+        }
       }
+
 
     }, 3000)
 

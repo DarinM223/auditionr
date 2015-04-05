@@ -4,11 +4,12 @@
 <div ng-init="loading=true">
   <h1 ng-show="loading">Loading...</h1>
   <h1>{{ audition.production.productionName }} &ndash; {{ audition.production.companyName }}</h1>
-  <h3 ng-show="client.isConnected()">Connected</h3>
+  <h3 ng-show="client.isConnected()">Loaded</h3>
   <div id="audition-videos" class="container-fluid">
 
     <div id="localVideoSource" class="video-stream"></div>
-    <div id="remoteVideoSource" class="video-stream"></div>
+
+    <div class="video-stream" ng-repeat="remote in remotes track by $index" ng-attr-id="{{'remoteVideoSource-' + $index}}" ></div>
 
   </div>
 
