@@ -7,7 +7,8 @@
   <h3 ng-show="client.isConnected()">Loaded</h3>
   <div id="audition-videos" class="container-fluid">
 
-    <div class="video-stream" ng-repeat="remote in remotes track by $index"  ng-attr-id="{{'localVideoSource-' + $index}}"></div>
+    <div class="video-stream" ng-repeat="remote in remotes track by $index"  ng-attr-id="{{'localVideoSource-' + $index}}"
+      ng-show="$index == 0"></div>
 
     <div class="video-stream" ng-repeat="remote in remotes track by $index" ng-attr-id="{{'remoteVideoSource-' + $index}}" ></div>
 
