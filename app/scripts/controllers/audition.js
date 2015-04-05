@@ -11,7 +11,7 @@ angular.module('auditionApp')
     console.log('Route changed!');
     // if ($scope.client) {
     //   $scope.client.disconnect();
-    }
+    // }
   });
 
   ref.on("value", function(snapshot) {
