@@ -20,8 +20,6 @@ angular.module('auditionApp')
       console.log(newObj);
       $scope.productions = _.extend($scope.productions, newObj);
     }
-
-    console.log($scope.productions);
   })
 
   $scope.signup = function(id) {

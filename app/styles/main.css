@@ -45,3 +45,7 @@
   background-color:grey;
   float:left;
 }
+
+.modal-description {
+    word-wrap: break-word;
+}
