@@ -21,6 +21,10 @@ angular.module('auditionApp')
       $scope.error = null;
     };
 
+    $scope.cancelClick = function() {
+      $location.path("/browse");
+    }
+
 	$scope.postClick = function() {
         if ($scope.productionname.trim() === '' ||
             $scope.companyname.trim() === '' ||
@@ -29,7 +33,7 @@ angular.module('auditionApp')
 
           $scope.error = "You cannot leave any of the fields empty!";
         } else if ($scope.productionname.length > 50 || $scope.description.length > 500) {
-          $scope.error = "You can only enter at most 50 characters for the production name and at most 150 characters for the description";
+          $scope.error = "You can only enter at most 50 characters for the production name and at most 500 characters for the description";
         } else {
 		  $scope.posts = pArray
 
