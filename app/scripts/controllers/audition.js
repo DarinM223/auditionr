@@ -7,6 +7,13 @@ angular.module('auditionApp')
   var ref = new Firebase("https://auditionr.firebaseio.com/users/" + $routeParams.director_id +
     "/productions/" + $routeParams.production_id + "/auditions/" + $routeParams.audition_id);
 
+  $scope.$on('$routeChangeStart', function(next, current) { 
+    console.log('Route changed!');
+    if ($scope.client) {
+      $scope.client.disconnect();
+    }
+  });
+
   ref.on("value", function(snapshot) {
     $scope.audition = snapshot.val();
 
@@ -16,6 +23,8 @@ angular.module('auditionApp')
         videoParent.innerHTML = "";
         videoParent.appendChild(videoElement);
       }
+
+      $('.modal-backdrop').hide();
 
       $scope.client = respoke.createClient({
         appId: "dc7663bb-7226-415f-a88b-576527a45d9d",
@@ -53,6 +62,7 @@ angular.module('auditionApp')
 
       $scope.client.listen('call', function(evt) {
         $scope.activeCall = evt.call;
+
 
         if ($scope.activeCall.caller !== true) {
           $scope.activeCall.answer(callOptions);

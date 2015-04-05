@@ -56,3 +56,7 @@
 pre.script {
   text-align:left;
 }
+
+.production {
+    height: 150px;
+}
