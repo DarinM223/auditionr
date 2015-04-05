@@ -2,7 +2,7 @@
 <p>
   <a ng-href="#/post" class="btn btn-primary btn-large">Post New Production</a>
 </p>
-<div class="show-listing col-md-4" ng-repeat="(id, production) in productions">
+<div class="show-listing show-listing-my col-md-4" ng-repeat="(id, production) in productions">
   <div class="panel panel-default">
     <div class="panel-heading">
       <a ng-href="#/casting/{{$root.authId}}/{{id}}"><h3 class="panel-title">{{production.productionName}} &ndash; {{production.companyName}}</h3>

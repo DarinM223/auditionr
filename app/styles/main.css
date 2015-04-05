@@ -68,3 +68,7 @@ pre.script {
 .float-right {
     float: right;
 }
+
+.show-listing-my .panel {
+  min-height:150px;
+}
