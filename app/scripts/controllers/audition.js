@@ -2,10 +2,11 @@
 
 angular.module('auditionApp')
 
-.controller('AuditionCtrl', function ($scope, $routeParams, $firebaseArray, $rootScope, $timeout) {
+.controller('AuditionCtrl', function ($scope, $routeParams, $firebaseObject, $rootScope, $timeout) {
 
   var ref = new Firebase("https://auditionr.firebaseio.com/users/" + $routeParams.director_id +
     "/productions/" + $routeParams.production_id + "/auditions/" + $routeParams.audition_id);
+  var obj = $firebaseObject(ref)
 
   $scope.$on('$routeChangeStart', function(next, current) {
     console.log('Route changed!');
@@ -14,8 +15,9 @@ angular.module('auditionApp')
     // }
   });
 
-  ref.on("value", function(snapshot) {
-    $scope.audition = snapshot.val();
+  obj.$loaded().then(function(aud) {
+    console.log('from this top')
+    $scope.audition = aud
 
     $timeout(function(){
       function setVideo(elementId, videoElement) {
@@ -81,6 +83,15 @@ angular.module('auditionApp')
           }
         }
 
+
+        $scope.clients[ci].listen('connect', function() {
+          $scope.$apply()
+        })
+
+        $scope.clients[ci].connect({
+          endpointId: $rootScope.authId
+        })
+
         if($scope.remotes[i].iShouldCall) {
           // Call them
 
@@ -100,16 +111,8 @@ angular.module('auditionApp')
                   setVideo('remoteVideoSource-' + i, evt.element)
               }
             }));
-            console.log('calling...')
+            console.log('calling...', $scope.remotes[i].id)
           }
-
-          $scope.clients[ci].listen('connect', function() {
-            $scope.$apply()
-          })
-
-          $scope.clients[ci].connect({
-            endpointId: $rootScope.authId
-          })
 
 
           $timeout(function(data){
@@ -123,32 +126,35 @@ angular.module('auditionApp')
         } else {
           // Wait for their call
 
-          $scope.clients[ci].listen('call', function(evt) {
-            $scope.activeCalls.push(evt.call);
-            var activeId = $scope.activeCalls.length;
+          ;(function(i, ci) {
+            $scope.clients[ci].listen('call', function(evt) {
+              $scope.activeCalls.push(evt.call);
+              var activeId = $scope.activeCalls.length - 1;
 
-            if ($scope.activeCalls[activeId].caller !== true) {
-              $scope.activeCalls[activeId].answer({
-                // your video
-                onLocalMedia: function(evt) {
-                    setVideo('localVideoSource-' + i, evt.element)
-                },
+              if ($scope.activeCalls[activeId].caller !== true) {
+                $scope.activeCalls[activeId].answer({
+                  // your video
+                  onLocalMedia: function(evt) {
+                      setVideo('localVideoSource-' + i, evt.element)
+                  },
 
-                // their video
-                onConnect: function(evt) {
-                    setVideo('remoteVideoSource-' + i, evt.element)
-                }
-              });
+                  // their video
+                  onConnect: function(evt) {
+                      setVideo('remoteVideoSource-' + i, evt.element)
+                  }
+                });
 
-              // The hangup event indicates the call is over
-              $scope.activeCalls[activeId].listen('hangup', function () {
-                  $scope.activeCalls[activeId] = null;
-                  $scope.$apply();
-              });
-            }
-            $scope.$apply();
+                // The hangup event indicates the call is over
+                $scope.activeCalls[activeId].listen('hangup', function () {
+                    $scope.activeCalls[activeId] = null;
+                    $scope.$apply();
+                });
+              }
+              $scope.$apply();
 
-          });
+            });
+          })(i, ci)
+
 
 
 
@@ -162,8 +168,6 @@ angular.module('auditionApp')
 
 
 
-  }, function(err) {
-    console.log('The read failed: ' + err.code);
   });
 
   $scope.activeCall = null
