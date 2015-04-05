@@ -2,7 +2,7 @@
 
 angular.module('auditionApp')
 
-.controller('BrowseCtrl', function ($scope, $firebaseArray, $rootScope, $location) {
+.controller('BrowseCtrl', function ($scope, $firebaseArray, $rootScope, $location, $route) {
   var pRef = new Firebase("https://auditionr.firebaseio.com/users")
   var pArray = $firebaseArray(pRef)
 
@@ -47,6 +47,7 @@ angular.module('auditionApp')
         auditions.$add(theData).then(function(p) {
           theData.id = p.key()
           theData.url = '/audition/' + production.user + '/' + $scope.current.id + '/' + p.key()
+          theData.production = production
           $scope.goHerePlease = theData.url
 
           p.set(theData)
@@ -84,6 +85,7 @@ angular.module('auditionApp')
 
             console.log('going to', $scope.goHerePlease)
             $location.path($scope.goHerePlease)
+            $route.reload()
             break;
 
           }

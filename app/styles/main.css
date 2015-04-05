@@ -38,3 +38,10 @@
 .production-foot {
   margin-top:20px;
 }
+
+.video-stream {
+  height:200px;
+  width:50%;
+  background-color:grey;
+  float:left;
+}
