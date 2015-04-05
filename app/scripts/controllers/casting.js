@@ -15,12 +15,18 @@ angular.module('auditionApp')
       $scope.auditions = auditions;
       console.log(auditions);
 
-      for (var i = 0; i < $scope.auditions.length; i++) {
-        if ($scope.isProperObject($scope.auditions[i].videos)) {
-
-          _.each($scope.auditions[i].videos, function(value, key) {
-            var embedding = ZiggeoApi.Embed.embed("#"+key, {paramx: "value-x", paramy: "value-y", video: value});
-          });
+      var videosNode = document.getElementById('videos');
+      for (var Akey in $scope.auditions) {
+        var audition = $scope.auditions[Akey];
+        if ($scope.isProperObject(audition)) {
+          for (var key in audition.videos) {
+            var value = audition.videos[key];
+            var newVideoNode = document.createElement('ziggeo');
+            var videoAttr = document.createAttribute('ziggeo-video');
+            videoAttr.value = value;
+            newVideoNode.setAttributeNode(videoAttr);
+            videosNode.appendChild(newVideoNode);
+          }
         }
       }
     });
