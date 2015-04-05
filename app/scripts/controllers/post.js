@@ -28,8 +28,8 @@ angular.module('auditionApp')
             $scope.description.trim() === '') {
 
           $scope.error = "You cannot leave any of the fields empty!";
-        } else if ($scope.productionname.length > 30 || $scope.description.length > 500) {
-          $scope.error = "You can only enter at most 30 characters for the production name and at most 70 characters for the description";
+        } else if ($scope.productionname.length > 50 || $scope.description.length > 500) {
+          $scope.error = "You can only enter at most 50 characters for the production name and at most 150 characters for the description";
         } else {
 		  $scope.posts = pArray
 
@@ -62,8 +62,11 @@ angular.module('auditionApp')
 		// $scope.characters.push($scope.characters.length + 1)
         $scope.characters.push("");
 		console.log($scope.characters)
-
 	}
+
+    $scope.minusClick = function(index) {
+      $scope.characters.splice(index, 1);
+    }
   } else {
     console.log("User id is null!");
   }
