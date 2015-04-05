@@ -52,3 +52,7 @@
 .modal-description {
     word-wrap: break-word;
 }
+
+pre.script {
+  text-align:left;
+}
