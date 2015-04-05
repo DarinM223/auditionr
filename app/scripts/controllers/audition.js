@@ -14,15 +14,15 @@ angular.module('auditionApp')
 
 
   obj.$loaded().then(function(aud) {
-    //experimental
-    var pVideos = $firebaseArray(ref.child('/videos'));
+    ////experimental
+    //var pVideos = $firebaseArray(ref.child('/videos'));
 
-    pVideos.$loaded().then(function(videos) {
-      ZiggeoApi.Events.on("submitted", function (data) {
-        videos.$add(data.video.token);
-        console.log(data.video.token);
-      });
-    });
+    //pVideos.$loaded().then(function(videos) {
+    //  ZiggeoApi.Events.on("submitted", function (data) {
+    //    videos.$add(data.video.token);
+    //    console.log(data.video.token);
+    //  });
+    //});
 
     console.log('from this top')
     $scope.audition = aud
