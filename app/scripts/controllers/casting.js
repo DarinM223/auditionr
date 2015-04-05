@@ -39,7 +39,7 @@ angular.module('auditionApp')
             newVideoNode.setAttributeNode(videoAttr);
             newVideoNode.setAttributeNode(widthAttr);
             newVideoNode.setAttributeNode(heightAttr);
-            newVideoNode.className = "display: inline-block;";
+            newVideoNode.className = "video-casting";
             videosNode.appendChild(newVideoNode);
             var breakNode = document.createElement('br');
             videosNode.appendChild(breakNode);

@@ -57,6 +57,10 @@ pre.script {
   text-align:left;
 }
 
+.video-casting {
+  float:left;
+}
+
 .production {
     height: 150px;
 }
