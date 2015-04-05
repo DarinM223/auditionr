@@ -33,9 +33,9 @@ angular.module('auditionApp')
             var videoAttr = document.createAttribute('ziggeo-video');
             videoAttr.value = value;
             var widthAttr = document.createAttribute('ziggeo-width');
-            widthAttr.value = '200px';
+            widthAttr.value = '400px';
             var heightAttr = document.createAttribute('ziggeo-height');
-            heightAttr.value = '200px';
+            heightAttr.value = '400px';
             newVideoNode.setAttributeNode(videoAttr);
             newVideoNode.setAttributeNode(widthAttr);
             newVideoNode.setAttributeNode(heightAttr);
