@@ -46,6 +46,7 @@ angular.module('auditionApp')
         }
       }
 
+      // Useless module please ignore
       $scope.iStore = (function() {
         var iLocal = 0;
         var iRemote = 0;
@@ -92,10 +93,12 @@ angular.module('auditionApp')
           endpointId: $rootScope.authId
         })
 
+
+
         if($scope.remotes[i].iShouldCall) {
           // Call them
 
-          $scope.call = function call(i, options, ci) {
+          var call = function(i, options, ci) {
             console.log('clients, ci=' + ci, $scope.clients)
             console.log('remotes, i=' + i, $scope.remotes)
 
@@ -117,8 +120,8 @@ angular.module('auditionApp')
 
           $timeout(function(data){
             console.log(data)
-            $scope.call(data.i, data.callOptions, data.ci)
-          }.bind(null, {i: i, callOptions: callOptions, ci: ci}), 5000)
+            data.call(data.i, data.callOptions, data.ci)
+          }.bind(null, {call: call, i: i, callOptions: callOptions, ci: ci}), 5000)
 
 
 
