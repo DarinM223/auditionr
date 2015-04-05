@@ -49,7 +49,7 @@ angular.module('auditionApp')
         var iRemote = 0;
 
         return {
-          getLocal: function(){return iLocal},
+          getLocal: function(){return iLocal;console.log('getLocal', iLocal)},
           incrementLocal: function(){iLocal++},
 
           getRemote: function(){return iRemote},
@@ -89,7 +89,17 @@ angular.module('auditionApp')
             console.log('remotes, i=' + i, $scope.remotes)
 
             var recipientEndpoint = $scope.clients[ci].getEndpoint({ id: $scope.remotes[i].id });
-            $scope.activeCalls.push(recipientEndpoint.startVideoCall(options));
+            $scope.activeCalls.push(recipientEndpoint.startVideoCall({
+              // your video
+              onLocalMedia: function(evt) {
+                  setVideo('localVideoSource-' + i, evt.element)
+              },
+
+              // their video
+              onConnect: function(evt) {
+                  setVideo('remoteVideoSource-' + i, evt.element)
+              }
+            }));
             console.log('calling...')
           }
 
