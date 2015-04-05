@@ -12,6 +12,7 @@ angular.module('auditionApp')
     console.log('Route changed!');
   });
 
+  //experimental
   var pVideos = $firebaseArray(ref.child('/videos'));
 
   pVideos.$loaded().then(function(videos) {
@@ -21,8 +22,8 @@ angular.module('auditionApp')
     });
   });
 
-
   obj.$loaded().then(function(aud) {
+
     console.log('from this top')
     $scope.audition = aud
 
