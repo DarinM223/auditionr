@@ -2,7 +2,7 @@
 
 angular.module('auditionApp')
 
-.controller('BrowseCtrl', function ($scope, $firebaseArray, $rootScope) {
+.controller('BrowseCtrl', function ($scope, $firebaseArray, $rootScope, $location) {
   var pRef = new Firebase("https://auditionr.firebaseio.com/users")
   var pArray = $firebaseArray(pRef)
 
@@ -43,7 +43,17 @@ angular.module('auditionApp')
       console.log(auditions)
 
       function addAudition() {
-        auditions.$add({people: [{id: $rootScope.authId, charId: charId}]})
+        var theData = {people: [{id: $rootScope.authId, charId: charId}]}
+        auditions.$add(theData).then(function(p) {
+          theData.id = p.key()
+          theData.url = '/audition/' + production.user + '/' + $scope.current.id + '/' + p.key()
+          $scope.goHerePlease = theData.url
+
+          p.set(theData)
+
+          console.log('going to', $scope.goHerePlease)
+          $location.path($scope.goHerePlease)
+        })
       }
 
       if(auditions.length === 0) {
@@ -67,9 +77,13 @@ angular.module('auditionApp')
             // There is a spot in this audition available for you
 
             console.log('audition.people', audition.people)
+            $scope.goHerePlease = audition.url
             audition.people[audition.people.length] = {id: $rootScope.authId, charId: charId}
             auditions.$save(audition)
             found = true
+
+            console.log('going to', $scope.goHerePlease)
+            $location.path($scope.goHerePlease)
             break;
 
           }
