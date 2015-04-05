@@ -123,25 +123,33 @@ angular.module('auditionApp')
         } else {
           // Wait for their call
 
-          ;(function(callOptions) {
-            $scope.clients[ci].listen('call', function(evt) {
-              $scope.activeCalls.push(evt.call);
-              var activeId = $scope.activeCalls.length;
+          $scope.clients[ci].listen('call', function(evt) {
+            $scope.activeCalls.push(evt.call);
+            var activeId = $scope.activeCalls.length;
 
-              if ($scope.activeCalls[activeId].caller !== true) {
-                $scope.activeCalls[activeId].answer(callOptions);
+            if ($scope.activeCalls[activeId].caller !== true) {
+              $scope.activeCalls[activeId].answer({
+                // your video
+                onLocalMedia: function(evt) {
+                    setVideo('localVideoSource-' + i, evt.element)
+                },
 
-                // The hangup event indicates the call is over
-                $scope.activeCalls[activeId].listen('hangup', function () {
-                    $scope.activeCalls[activeId] = null;
-                    $scope.$apply();
-                });
-              }
-              $scope.$apply();
+                // their video
+                onConnect: function(evt) {
+                    setVideo('remoteVideoSource-' + i, evt.element)
+                }
+              });
 
-            });
+              // The hangup event indicates the call is over
+              $scope.activeCalls[activeId].listen('hangup', function () {
+                  $scope.activeCalls[activeId] = null;
+                  $scope.$apply();
+              });
+            }
+            $scope.$apply();
 
-          })(callOptions)
+          });
+
 
 
 
