@@ -58,7 +58,7 @@ angular.module('auditionApp')
         if($scope.remotes[i].iShouldCall) {
           // Call them
 
-          function call(i, options) {
+          $scope.call = function call(i, options) {
             var recipientEndpoint = $scope.clients[i].getEndpoint({ id: $scope.remotes[i].friendId });
             $scope.activeCalls.push(recipientEndpoint.startVideoCall(options));
             console.log('calling...')
