@@ -26,6 +26,8 @@ angular.module('auditionApp')
             videoAttr.value = value;
             newVideoNode.setAttributeNode(videoAttr);
             videosNode.appendChild(newVideoNode);
+            var breakNode = document.createElement('br');
+            videosNode.appendChild(breakNode);
           }
         }
       }
