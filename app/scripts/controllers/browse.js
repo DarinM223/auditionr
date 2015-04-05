@@ -28,6 +28,8 @@ angular.module('auditionApp')
   }
 
   $scope.submit = function() {
+    $('#signup-modal').modal('hide')
+
     var production = $scope.current
     var charId = $('input:radio[name=character]:checked').val();
 
