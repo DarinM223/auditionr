@@ -40,7 +40,7 @@ angular
         templateUrl: 'views/audition.html',
         controller: 'AuditionCtrl'
       })
-      .when('/casting', {
+      .when('/casting/:director_id/:production_id', {
         templateUrl: 'views/casting.html',
         controller: 'CastingCtrl'
       })

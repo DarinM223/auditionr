@@ -1,18 +1,8 @@
-<div>
-	
-
-
+<div ng-repeat="audition in auditions">
+  <div ng-if="isProperObject(audition.videos)">
+    <div ng-repeat="(my_id, video_id) in audition.videos">
+      <!--<ziggo-angular video="{{video_id}}"></ziggo-angular>--> <!--Doesn't workd-->
+      <ziggo ziggo-video="{{video_id}}"></ziggo>
+    </div>
+  </div>
 </div>
-
-
-<!-- <div class="list-group">
-  <a href="#" class="list-group-item">
-    <h4 class="list-group-item-heading">List group item heading</h4>
-    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-  </a>
-  <a href="#" class="list-group-item">
-    <h4 class="list-group-item-heading">List group item heading</h4>
-    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-  </a>
-</div>
- -->
