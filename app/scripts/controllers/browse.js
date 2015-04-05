@@ -68,6 +68,8 @@ angular.module('auditionApp')
 
             console.log('audition.people', audition.people)
             audition.people[audition.people.length] = {id: $rootScope.authId, charId: charId}
+            auditions.$save(audition)
+            found = true
             break;
 
           }
