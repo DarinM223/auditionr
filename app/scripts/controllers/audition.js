@@ -15,6 +15,10 @@ angular.module('auditionApp')
     // }
   });
 
+  ZiggeoApi.Events.on("submitted", function (data) {
+	alert("Submitted a new video with token '" + data.video.token + "'!");
+  });
+
   obj.$loaded().then(function(aud) {
     console.log('from this top')
     $scope.audition = aud
