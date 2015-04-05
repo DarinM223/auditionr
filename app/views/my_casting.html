@@ -1,32 +1,14 @@
-<div class="jumbotron">
-	<h2 class="text-center">My Production</h2>
-		<div class="show-listing col-md-4" ng-repeat="(id, production) in productions">
-  			<div class="panel panel-default">
-    			<div class="panel-heading">
-      				<h3 class="panel-title">{{production.productionName}} &ndash; {{production.companyName}}</h3>
-    			</div>
-    		<div class="panel-body">
-
-      			{{production.descriptionBox}}
-      			<div class="production-foot col-sm-12">
-        			<a ng-click="signup(id)" class="btn btn-success btn-large col-lg-8 col-lg-offset-2 col-xs-4 col-xs-offset-4">Audition</a>
-      			</div>
-    		</div>
-  		</div>
-	</div>
-</div>
-<!-- <h1>Browse Castings</h1>
+<h1>Browse My Productions</h1>
 <p>
-  <a ng-href="/post" class="btn btn-primary btn-large">Post New Casting</a>
+  <a ng-href="#/post" class="btn btn-primary btn-large">Post New Production</a>
 </p>
-<div class="show-listing col-md-4" ng-repeat="casting in castings">
+<div class="show-listing col-md-4" ng-repeat="(id, production) in productions">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{{casting.title}}</h3>
+      <h3 class="panel-title">{{production.productionName}} &ndash; {{production.companyName}}</h3>
     </div>
     <div class="panel-body">
-      {{casting.description}}
+      {{production.descriptionBox}}
     </div>
   </div>
 </div>
- -->
