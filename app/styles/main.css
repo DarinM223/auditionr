@@ -38,3 +38,8 @@
 .production-foot {
   margin-top:20px;
 }
+
+
+.modal-description {
+    word-wrap: break-word;
+}

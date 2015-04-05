@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <h3>Description:</h3>
-        <p>
+        <p class="modal-description">
           {{ current.descriptionBox }}
         </p>
 
@@ -44,10 +44,13 @@
     <div class="panel-heading">
       <h3 class="panel-title">{{production.productionName}} &ndash; {{production.companyName}}</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body hide-content">
 
-      {{production.descriptionBox}}
-      <div class="production-foot col-sm-12">
+      <div ng-if="production.descriptionBox == null || production.descriptionBox.trim().length == 0"><br></div>
+      <div ng-if="production.descriptionBox.length > 47">{{production.descriptionBox.substring(0, 47) + "..."}}</div>
+      <div ng-if="production.descriptionBox.length <= 47">{{production.descriptionBox}}</div>
+      <br>
+      <br>
         <a ng-click="signup(id)" class="btn btn-success btn-large col-lg-8 col-lg-offset-2 col-xs-4 col-xs-offset-4">Audition</a>
       </div>
 
