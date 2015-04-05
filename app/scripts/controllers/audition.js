@@ -2,7 +2,7 @@
 
 angular.module('auditionApp')
 
-.controller('AuditionCtrl', function ($scope, $routeParams, $firebaseObject, $rootScope, $timeout) {
+.controller('AuditionCtrl', function ($scope, $routeParams, $firebaseObject, $rootScope, $timeout, $firebaseArray) {
 
   var ref = new Firebase("https://auditionr.firebaseio.com/users/" + $routeParams.director_id +
     "/productions/" + $routeParams.production_id + "/auditions/" + $routeParams.audition_id);
@@ -10,14 +10,17 @@ angular.module('auditionApp')
 
   $scope.$on('$routeChangeStart', function(next, current) {
     console.log('Route changed!');
-    // if ($scope.client) {
-    //   $scope.client.disconnect();
-    // }
   });
 
-  ZiggeoApi.Events.on("submitted", function (data) {
-	alert("Submitted a new video with token '" + data.video.token + "'!");
+  var pVideos = $firebaseArray(ref.child('/videos'));
+
+  pVideos.$loaded().then(function(videos) {
+    ZiggeoApi.Events.on("submitted", function (data) {
+      videos.$add(data.video.token);
+      console.log(data.video.token);
+    });
   });
+
 
   obj.$loaded().then(function(aud) {
     console.log('from this top')
