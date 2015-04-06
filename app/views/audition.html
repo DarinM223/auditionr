@@ -12,21 +12,20 @@
   <div id="audition-videos" class="container-fluid">
 
     <div class="video-stream" ng-repeat="remote in remotes track by $index"  ng-attr-id="{{'localVideoSource-' + $index}}"
-      ng-show="$index == 0"></div>
+      ng-show="$index == 0">
+    </div>
 
-    <div class="video-stream" ng-repeat="remote in remotes track by $index" ng-attr-id="{{'remoteVideoSource-' + $index}}" ></div>
-
+    <div class="video-stream" 
+      ng-repeat="remote in remotes track by $index" 
+      ng-attr-id="{{'remoteVideoSource-' + $index}}" >
+    </div>
   </div>
-
-  <!--<div id="audition-description" class="jumbotron">-->
-  <!--  <h3 class="title">Description:</h3>-->
-  <!--  {{ audition.production.descriptionBox }}-->
-  <!--</div>-->
 
   <br/>
 
   <div id="audition-script" class="jumbotron">
     <h2 class="title">Script:</h2>
     <pre class="script">{{ audition.production.sampleScript }}</pre>
-
+  
+  </div>
 </div>

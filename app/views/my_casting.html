@@ -5,11 +5,11 @@
 <div class="show-listing show-listing-my col-md-4" ng-repeat="(id, production) in productions">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <a ng-href="#/casting/{{$root.authId}}/{{id}}"><h3 class="panel-title">{{production.productionName}} &ndash; {{production.companyName}}</h3>
+      <a ng-href="#/casting/{{$root.authId}}/{{id}}">
+        <h3 class="panel-title">{{production.productionName}} &ndash; {{production.companyName}}</h3>
       </a>
     </div>
     <div class="panel-body hide-content">
-
       <div ng-if="production.descriptionBox == null || production.descriptionBox.trim().length == 0"><br></div>
       <div ng-if="production.descriptionBox.length > 47">{{production.descriptionBox.substring(0, 47) + "..."}}</div>
       <div ng-if="production.descriptionBox.length <= 47">{{production.descriptionBox}}</div>

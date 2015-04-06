@@ -3,9 +3,6 @@
 angular.module('auditionApp')
 
 .controller('NavbarCtrl', function ($scope, $rootScope) {
-  var ref = new Firebase("https://auditionr.firebaseio.com");
-  ref.onAuth(checkLogin);
-
   function checkLogin(authData) {
     if(authData) {
       $scope.loggedIn = true;
@@ -13,7 +10,7 @@ angular.module('auditionApp')
       $rootScope.authId = authData.uid;
 
       var user = ref.child('/users/' + authData.uid);
-      user.on("value", function(snapshot) {
+      user.on('value', function(snapshot) {
         if (snapshot.val() === null){
           user.set({
             name: authData.facebook.displayName,
@@ -28,15 +25,18 @@ angular.module('auditionApp')
     }
   }
 
-  $scope.navInit = function() {
-    console.log('navInit')
-    var authData = ref.getAuth()
+  var ref = new Firebase('https://auditionr.firebaseio.com');
+  ref.onAuth(checkLogin);
 
-    checkLogin(authData)
-  }
+  $scope.navInit = function() {
+    console.log('navInit');
+    var authData = ref.getAuth();
+
+    checkLogin(authData);
+  };
 
   $scope.logout = function() {
     $rootScope.authId = null;
-    ref.unauth()
-  }
+    ref.unauth();
+  };
 });

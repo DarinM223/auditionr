@@ -51,9 +51,4 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  })
-  // .factory('auth', function authFactory() {
-  //   var ref = new Firebase("https://auditionr.firebaseio.com");
-  //   var authData = ref.getAuth()
-  //   return authData
-  // })
+  });
